@@ -3,7 +3,7 @@
 {% block title %} {{ action }} рецепт {% endblock %}
 
 {% block content %}
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_div }}
         <button type="submit" class="btn btn-success">Добавить</button>
