@@ -17,7 +17,7 @@ def recipes(request):
 
 def add_recipe(request):
     if request.method == 'POST':
-        form = RecipeForm(request.POST)
+        form = RecipeForm(request.POST, request.FILES)
         if form.is_valid():
             title = form.cleaned_data['title']
             description = form.cleaned_data['description']
