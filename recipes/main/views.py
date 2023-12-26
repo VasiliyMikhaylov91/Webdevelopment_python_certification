@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.core.files.storage import FileSystemStorage
+
 from .models import User, Recipe
 from .forms import RecipeForm
 
@@ -23,6 +25,8 @@ def add_recipe(request):
             cooking_time = form.cleaned_data['cooking_time']
             meal_image = form.cleaned_data['meal_image']
             author = form.cleaned_data['author']
+            fs = FileSystemStorage()
+            fs.save(meal_image.name, meal_image)
             recipe = Recipe(title=title, description=description, sequence=sequence, cooking_time=cooking_time,
                             meal_image=meal_image, author=author)
             recipe.save()
