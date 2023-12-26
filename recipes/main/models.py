@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator
 
+
 # Create your models here.
 class User(models.Model):
     name = models.CharField(max_length=100)
@@ -16,7 +17,7 @@ class Recipe(models.Model):
     description = models.TextField()
     sequence = models.TextField()
     cooking_time = models.IntegerField(validators=[MinValueValidator(1)])
-    meal_image = models.ImageField(upload_to='media/')
+    meal_image = models.ImageField(blank=True, null=True, upload_to='media/')
     author = models.CharField(max_length=100)
 
     def __str__(self):
