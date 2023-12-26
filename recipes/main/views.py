@@ -14,14 +14,19 @@ def recipes(request):
 
 
 def add_recipe(request):
-    error = ''
     if request.method == 'POST':
         form = RecipeForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('recipes')
-        else:
-            error = 'Форма заполнена неверно'
-    form = RecipeForm()
-    context = {'action': 'Создать', 'form': form, 'error': error}
+            title = form.cleaned_data['title']
+            description = form.cleaned_data['description']
+            sequence = form.cleaned_data['sequence']
+            cooking_time = form.cleaned_data['cooking_time']
+            meal_image = form.cleaned_data['meal_image']
+            author = form.cleaned_data['author']
+            recipe = Recipe(title=title, description=description, sequence=sequence, cooking_time=cooking_time,
+                            meal_image=meal_image, author=author)
+            recipe.save()
+    else:
+        form = RecipeForm()
+    context = {'action': 'Добавить', 'form': form}
     return render(request, 'main/recipe_conf.html', context)

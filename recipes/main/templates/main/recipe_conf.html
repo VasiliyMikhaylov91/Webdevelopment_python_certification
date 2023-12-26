@@ -3,15 +3,9 @@
 {% block title %} {{ action }} рецепт {% endblock %}
 
 {% block content %}
-    <form method="post">
+    <form action="" method="post">
         {% csrf_token %}
-        {{ form.title }} <br>
-        {{ form.description }} <br>
-        {{ form.sequence }} <br>
-        {{ form.cooking_time }} <br>
-        {{ form.meal_image }} <br>
-        {{ form.author }} <br>
+        {{ form }}
         <button type="submit" class="btn btn-success">Добавить</button>
-        <span>{{ error }}</span>
     </form>
 {% endblock %}

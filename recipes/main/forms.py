@@ -1,33 +1,11 @@
 from .models import Recipe
-from django.forms import ModelForm, TextInput, Textarea, NumberInput, FileInput
+from django import forms
 
 
-class RecipeForm(ModelForm):
-    class Meta:
-        model = Recipe
-        fields = ["title", "description", "sequence", "cooking_time", "meal_image", "author"]
-        widgets = {
-            "title": TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Введите название'
-            }),
-            "description": Textarea(attrs={
-                'class': 'form-control',
-                'placeholder': 'Введите описание'
-            }),
-            "sequence": Textarea(attrs={
-                'class': 'form-control',
-                'placeholder': 'Введите последовательность приготовления'
-            }),
-            "cooking_time": NumberInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Время приготовления, мин'
-            }),
-            "meal_image": FileInput(attrs={
-                'class': 'form-control',
-            }),
-            "author": TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Введите автора'
-            }),
-        }
+class RecipeForm(forms.Form):
+    title = forms.CharField(max_length=60)
+    description = forms.Textarea()
+    sequence = forms.Textarea()
+    cooking_time = forms.IntegerField(min_value=1)
+    meal_image = forms.ImageField()
+    author = forms.CharField(max_length=100)
