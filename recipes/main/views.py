@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 
 from .models import User, Recipe
-from .forms import RecipeForm
+from .forms import RecipeForm, ImgForm
 
 
 # Create your views here.
@@ -18,6 +18,7 @@ def recipes(request):
 def recipe_page(request, pk):
     position = Recipe.objects.filter(id=pk).first()
     context = {
+        "pk": pk,
         "title": position.title,
         "description": position.description,
         "sequence": position.sequence,
@@ -26,6 +27,22 @@ def recipe_page(request, pk):
         "author": position.author
     }
     return render(request, 'main/recipe_page.html', context)
+
+
+def change_img(request, pk):
+    position = Recipe.objects.filter(id=pk).first()
+    if request.method == 'POST':
+        form = ImgForm(request.POST, request.FILES)
+        if form.is_valid():
+            meal_image = form.cleaned_data['meal_image']
+            position.meal_image = meal_image
+            position.save()
+            fs = FileSystemStorage()
+            fs.save(meal_image.name, meal_image)
+            return redirect(f'/recipes/{pk}')
+    form = ImgForm()
+    context = {'action': f'Изменить изображение для {position.title}', 'form': form}
+    return render(request, 'main/recipe_conf.html', context)
 
 
 def add_recipe(request):
@@ -46,5 +63,5 @@ def add_recipe(request):
             return redirect('recipes')
     else:
         form = RecipeForm()
-    context = {'action': 'Добавить', 'form': form}
+    context = {'action': 'Добавить рецепт', 'form': form}
     return render(request, 'main/recipe_conf.html', context)
