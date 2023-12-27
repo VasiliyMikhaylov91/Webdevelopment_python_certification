@@ -17,7 +17,7 @@ class Recipe(models.Model):
     description = models.TextField()
     sequence = models.TextField()
     cooking_time = models.IntegerField(validators=[MinValueValidator(1)])
-    meal_image = models.ImageField(blank=True, null=True, upload_to='media/')
+    meal_image = models.ImageField()
     author = models.CharField(max_length=100)
 
     def __str__(self):
