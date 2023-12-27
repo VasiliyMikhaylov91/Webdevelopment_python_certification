@@ -15,6 +15,25 @@ def recipes(request):
     return render(request, 'main/recipes.html', {'positions': positions})
 
 
+def recipe_page(request, pk):
+    position = Recipe.objects.filter(id=pk)
+    title = position.title
+    description = position.description
+    sequence = position.sequence
+    cooking_time = position.cooking_time
+    meal_image = position.meal_image
+    author = position.author
+    context = {
+        title: title,
+        description: description,
+        sequence: sequence,
+        cooking_time: cooking_time,
+        meal_image: meal_image,
+        author: author
+    }
+    return render(request, 'main/recipe_page.html', context)
+
+
 def add_recipe(request):
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES)
@@ -30,6 +49,7 @@ def add_recipe(request):
             recipe = Recipe(title=title, description=description, sequence=sequence, cooking_time=cooking_time,
                             meal_image=meal_image, author=author)
             recipe.save()
+            return redirect('recipes')
     else:
         form = RecipeForm()
     context = {'action': 'Добавить', 'form': form}
