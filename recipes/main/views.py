@@ -16,7 +16,7 @@ def recipes(request):
 
 
 def recipe_page(request, pk):
-    position = Recipe.objects.filter(id=pk)
+    position = Recipe.objects.filter(id=pk).first()
     title = position.title
     description = position.description
     sequence = position.sequence
