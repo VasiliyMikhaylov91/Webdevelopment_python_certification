@@ -1,3 +1,5 @@
+import os
+
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 
@@ -35,6 +37,7 @@ def change_img(request, pk):
         form = ImgForm(request.POST, request.FILES)
         if form.is_valid():
             meal_image = form.cleaned_data['meal_image']
+            os.remove(f'/media/{position.meal_image}')
             position.meal_image = meal_image
             position.save()
             fs = FileSystemStorage()
