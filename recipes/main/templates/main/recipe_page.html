@@ -4,9 +4,9 @@
 
 {% block content %}
     <h1> {{ title }} </h1>
-    <div class="row">
-        <img src="/media/{{ meal_image }}" alt="{{ title }}">
-        <button type="button" class="btn btn-outline-info">Редактировать</button>
+    <div class="d-flex p-2 position-relative">
+        <img class="w-50" src="/media/{{ meal_image }}" alt="{{ title }}" class="w-50">
+        <button type="button" class="btn btn-outline-info p-2 h-10 position-absolute top-50 start-50">Редактировать</button>
     </div>
     <div class="alert alert-warning mt-2 row">
         <div>
