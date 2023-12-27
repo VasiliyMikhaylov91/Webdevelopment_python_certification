@@ -1,9 +1,7 @@
-import os
-
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 
-from .models import User, Recipe
+from .models import Recipe
 from .forms import RecipeForm, ImgForm, DescriptionForm, SequenceForm, CookingTimeForm
 
 
