@@ -15,18 +15,24 @@
             <h3>Описание</h3>
             <p>{{ description }}</p>
         </div>
-        <button type="button" class="btn btn-outline-info">Редактировать</button>
+        <button type="submit"
+                onClick="location.href='/recipes/{{ pk }}/change_description/'"
+                class="btn btn-outline-info">Редактировать</button>
     </div>
     <div class="alert alert-warning mt-2 row">
         <div>
             <h3>Шаги приготовления</h3>
             <p>{{ sequence }}</p>
         </div>
-        <button type="button" class="btn btn-outline-info">Редактировать</button>
+        <button type="submit"
+                onClick="location.href='/recipes/{{ pk }}/change_sequence/'"
+                class="btn btn-outline-info">Редактировать</button>
     </div>
     <div class="alert alert-warning mt-2 col">
         <h3>Время приготовления: {{ cooking_time }}</h3>
-        <button type="button" class="btn btn-outline-info">Изменить</button>
+        <button type="submit"
+                onClick="location.href='/recipes/{{ pk }}/change_cooking_time/'"
+                class="btn btn-outline-info">Изменить</button>
     </div>
     <div class="mt-2">
         <h4>Автор: {{ author }}</h4>
