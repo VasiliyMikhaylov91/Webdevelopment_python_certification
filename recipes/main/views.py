@@ -17,19 +17,13 @@ def recipes(request):
 
 def recipe_page(request, pk):
     position = Recipe.objects.filter(id=pk).first()
-    title = position.title
-    description = position.description
-    sequence = position.sequence
-    cooking_time = position.cooking_time
-    meal_image = position.meal_image
-    author = position.author
     context = {
-        title: title,
-        description: description,
-        sequence: sequence,
-        cooking_time: cooking_time,
-        meal_image: meal_image,
-        author: author
+        "title": position.title,
+        "description": position.description,
+        "sequence": position.sequence,
+        "cooking_time": position.cooking_time,
+        "meal_image": position.meal_image,
+        "author": position.author
     }
     return render(request, 'main/recipe_page.html', context)
 
