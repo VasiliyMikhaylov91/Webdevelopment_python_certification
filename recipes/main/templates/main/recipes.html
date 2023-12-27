@@ -4,12 +4,14 @@
 
 {% block content %}
 {% if positions %}
-{% for position in positions %}
-<div onclick="location.href='recipes/{{ position.id }} class=" alert alert-warning mt-2">
-<h3>{{ position.title }}</h3>
-<p>{{ position.description }}</p>
-</div>
-{% endfor %}
+    {% for position in positions %}
+        <a href="recipes/{{ position.id }}">
+            <div class=" alert alert-warning mt-2">
+                <h3>{{ position.title }}</h3>
+                <p>{{ position.description }}</p>
+            </div>
+        </a>
+    {% endfor %}
 {% else %}
 <p>Рецептов нет</p>
 {% endif %}
