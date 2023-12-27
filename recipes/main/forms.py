@@ -13,3 +13,15 @@ class RecipeForm(forms.Form):
 
 class ImgForm(forms.Form):
     meal_image = forms.ImageField()
+
+
+class DescriptionForm(forms.Form):
+    description = forms.CharField(max_length=1_000_000)
+
+
+class SequenceForm(forms.Form):
+    sequence = forms.CharField(max_length=1_000_000)
+
+
+class CookingTimeForm(forms.Form):
+    cooking_time = forms.IntegerField(min_value=1)

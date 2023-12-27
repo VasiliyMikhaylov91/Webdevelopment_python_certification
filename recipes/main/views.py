@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 
 from .models import User, Recipe
-from .forms import RecipeForm, ImgForm
+from .forms import RecipeForm, ImgForm, DescriptionForm, SequenceForm, CookingTimeForm
 
 
 # Create your views here.
@@ -37,7 +37,6 @@ def change_img(request, pk):
         form = ImgForm(request.POST, request.FILES)
         if form.is_valid():
             meal_image = form.cleaned_data['meal_image']
-            os.remove(f'/media/{position.meal_image}')
             position.meal_image = meal_image
             position.save()
             fs = FileSystemStorage()
@@ -45,6 +44,48 @@ def change_img(request, pk):
             return redirect(f'/recipes/{pk}')
     form = ImgForm()
     context = {'action': f'Изменить изображение для {position.title}', 'form': form}
+    return render(request, 'main/recipe_conf.html', context)
+
+
+def change_description(request, pk):
+    position = Recipe.objects.filter(id=pk).first()
+    if request.method == 'POST':
+        form = DescriptionForm(request.POST)
+        if form.is_valid():
+            description = form.cleaned_data['description']
+            position.description = description
+            position.save()
+            return redirect(f'/recipes/{pk}')
+    form = DescriptionForm()
+    context = {'action': f'Изменить описание для {position.title}', 'form': form}
+    return render(request, 'main/recipe_conf.html', context)
+
+
+def change_sequence(request, pk):
+    position = Recipe.objects.filter(id=pk).first()
+    if request.method == 'POST':
+        form = SequenceForm(request.POST)
+        if form.is_valid():
+            sequence = form.cleaned_data['sequence']
+            position.sequence = sequence
+            position.save()
+            return redirect(f'/recipes/{pk}')
+    form = SequenceForm()
+    context = {'action': f'Изменить шаги приготовления для {position.title}', 'form': form}
+    return render(request, 'main/recipe_conf.html', context)
+
+
+def change_cooking_time(request, pk):
+    position = Recipe.objects.filter(id=pk).first()
+    if request.method == 'POST':
+        form = CookingTimeForm(request.POST)
+        if form.is_valid():
+            cooking_time = form.cleaned_data['cooking_time']
+            position.cooking_time = cooking_time
+            position.save()
+            return redirect(f'/recipes/{pk}')
+    form = CookingTimeForm()
+    context = {'action': f'Изменить время приготовления для {position.title}', 'form': form}
     return render(request, 'main/recipe_conf.html', context)
 
 
