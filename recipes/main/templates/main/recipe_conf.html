@@ -5,9 +5,7 @@
 {% block content %}
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {% for f in form %}
-            <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f }}</p>
-        {% endfor %}
+        {{{ form.as_div }}}
         <button type="submit" class="btn btn-success">Добавить</button>
     </form>
 {% endblock %}
