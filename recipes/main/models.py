@@ -3,12 +3,6 @@ from django.core.validators import MinValueValidator
 
 
 # Create your models here.
-class User(models.Model):
-    name = models.CharField(max_length=60, unique=True)
-    email = models.EmailField(unique=True)
-    password = models.CharField(max_length=20)
-
-
 class Recipe(models.Model):
     title = models.CharField(max_length=60, unique=True)
     description = models.TextField()
