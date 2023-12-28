@@ -5,15 +5,19 @@
 {% block content %}
 {% if positions %}
     {% for position in positions %}
-        <a href="{{ position.id }}" class="alert alert-warning mt-2 text-decoration-none">
-            <h3>{{ position.title }}</h3>
-            <p>{{ position.description }}</p>
+        <a href="{{ position.id }}" class="text-decoration-none">
+            <div class="alert alert-warning mt-2 ">
+                <h3>{{ position.title }}</h3>
+                <p>{{ position.description }}</p>
+            </div>
         </a>
     {% endfor %}
 {% else %}
 <p>Рецептов нет</p>
 {% endif %}
-<button type="submit" onClick="location.href='{% url 'add_recipe' %}'"
-        class="d-flex justify-content-center btn btn-primary me-2 mb-4 ">Добавить рецепт
-</button>
+<div class="d-flex justify-content-center">
+    <button type="submit" onClick="location.href='{% url 'add_recipe' %}'"
+            class="btn btn-primary me-2 mb-4">Добавить рецепт
+    </button>
+</div>
 {% endblock %}
