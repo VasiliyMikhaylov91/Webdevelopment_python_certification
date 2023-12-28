@@ -108,5 +108,6 @@ def add_recipe(request):
     context = {'action': 'Добавить рецепт', 'form': form}
     return render(request, 'main/recipe_conf.html', context)
 
+
 def info(request):
-    render(request, 'main/info')
+    render(request, 'main/info.html')
