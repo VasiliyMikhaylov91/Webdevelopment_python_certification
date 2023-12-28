@@ -9,9 +9,11 @@ from .forms import RecipeForm, ImgForm, DescriptionForm, SequenceForm, CookingTi
 # Create your views here.
 def index(request):
     positions = Recipe.objects.all()
-    recipes_list = []
-    for _ in range(4):
-        recipes_list.append(choice(positions))
+    recipes_list = None
+    if positions:
+        recipes_list = []
+        for _ in range(4):
+            recipes_list.append(choice(positions))
     return render(request, 'main/index.html', {'recipes': recipes_list})
 
 
