@@ -110,4 +110,4 @@ def add_recipe(request):
 
 
 def info(request):
-    render(request, 'main/info.html')
+    return render(request, 'main/info.html')
