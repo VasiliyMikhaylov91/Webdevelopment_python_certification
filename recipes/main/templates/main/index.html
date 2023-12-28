@@ -7,7 +7,7 @@
         <div class="container text-center">
           <div class="row row-cols-2">
                   {% for recipe in recipes %}
-                  <div class="col">
+                  <a href="recipes/{{ recipe.id }}/" class="col">
                           <figure class="figure w-50">
                                 <img src="/media/{{ recipe.meal_image }}"
                                      class="figure-img img-fluid rounded"
@@ -15,7 +15,7 @@
                                 >
                                 <figcaption class="figure-caption text-center">{{ recipe.title }}</figcaption>
                           </figure>
-                  </div>
+                  </a>
                   {% endfor %}
           </div>
         </div>
