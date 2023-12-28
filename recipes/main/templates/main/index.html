@@ -4,4 +4,19 @@
 
 {% block content %}
         <h1 class="d-flex justify-content-center"> Добро пожаловать на сайт рецептов </h1>
+        <div class="container text-center">
+          <div class="row row-cols-2">
+                  {% for recipe in recipes %}
+                  <div class="col">
+                          <figure class="figure">
+                                <img src="/media/{{ recipe.meal_image }}"
+                                     class="figure-img img-fluid rounded"
+                                     alt="{{ recipe.title }}"
+                                >
+                                <figcaption class="figure-caption text-end">{{ recipe.title }}</figcaption>
+                          </figure>
+                  </div>
+                  {% endfor %}
+          </div>
+        </div>
 {% endblock %}

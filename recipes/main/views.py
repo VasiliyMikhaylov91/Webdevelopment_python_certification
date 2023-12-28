@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
+from random import choice
 
 from .models import Recipe
 from .forms import RecipeForm, ImgForm, DescriptionForm, SequenceForm, CookingTimeForm
@@ -7,7 +8,11 @@ from .forms import RecipeForm, ImgForm, DescriptionForm, SequenceForm, CookingTi
 
 # Create your views here.
 def index(request):
-    return render(request, 'main/index.html')
+    positions = Recipe.objects.all()
+    recipes_list = []
+    for _ in range(4):
+        recipes_list.append(choice(positions))
+    return render(request, 'main/index.html', {'recipes': recipes_list})
 
 
 def recipes(request):
