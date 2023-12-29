@@ -1,10 +1,12 @@
 from django.urls import path
-from .views import index, info, recipes, add_recipe, recipe_page, change_img, change_description, change_sequence, \
-    change_cooking_time
+from .views import index, register, login, logout, info, recipes, add_recipe, recipe_page, change_img, \
+    change_description, change_sequence, change_cooking_time
 
 urlpatterns = [
     path('', index, name='home'),
-    # path('register/', register, name='register'),
+    path('register/', register, name='register'),
+    path('login/', login, name='login'),
+    path('logout/', logout, name='logout'),
     path('recipes/<int:pk>/change_img/', change_img),
     path('recipes/<int:pk>/change_description/', change_description),
     path('recipes/<int:pk>/change_sequence/', change_sequence),

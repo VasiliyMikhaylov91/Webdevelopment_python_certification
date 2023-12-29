@@ -3,7 +3,7 @@ from django.core.files.storage import FileSystemStorage
 from random import choice
 
 from .models import Recipe
-from .forms import RecipeForm, ImgForm, DescriptionForm, SequenceForm, CookingTimeForm
+from .forms import RegisterForm, LoginForm, User, RecipeForm, ImgForm, DescriptionForm, SequenceForm, CookingTimeForm
 
 
 # Create your views here.
@@ -15,6 +15,36 @@ def index(request):
         for _ in range(4):
             recipes_list.append(choice(positions))
     return render(request, 'main/index.html', {'recipes': recipes_list})
+
+
+def register(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = User(username='username', email='email', password='password')
+            user.save()
+            request.session['username'] = user.username
+            return redirect('home')
+    form = RegisterForm()
+    context = {'title': 'Регистрация пользователя', 'form': form}
+    return render(request, 'main/user.html', context)
+
+
+def login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user = User.objects.filter(username='username').first()
+            request.session['username'] = user.username
+            return redirect('home')
+    form = LoginForm()
+    context = {'title': 'Вход', 'form': form}
+    return render(request, 'main/user.html', context)
+
+
+def logout(request):
+    del request.session
+    return redirect('/')
 
 
 def recipes(request):
