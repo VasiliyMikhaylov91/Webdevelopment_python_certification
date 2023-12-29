@@ -21,6 +21,9 @@ def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
             user = User(username='username', email='email', password='password')
             user.save()
             request.session['username'] = user.username
@@ -34,7 +37,7 @@ def login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            user = User.objects.filter(username='username').first()
+            user = User.objects.filter(username=form.cleaned_data['username']).first()
             request.session['username'] = user.username
             return redirect('home')
     form = LoginForm()
