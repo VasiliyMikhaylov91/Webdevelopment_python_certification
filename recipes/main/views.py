@@ -29,7 +29,7 @@ def register(request):
             request.session['username'] = user.username
             return redirect('home')
     form = RegisterForm()
-    context = {'title': 'Регистрация пользователя', 'form': form}
+    context = {'title': 'Регистрация пользователя', 'form': form, 'action': 'Зарегестрароваться'}
     return render(request, 'main/user.html', context)
 
 
@@ -41,7 +41,7 @@ def login(request):
             request.session['username'] = user.username
             return redirect('home')
     form = LoginForm()
-    context = {'title': 'Вход', 'form': form}
+    context = {'title': 'Вход', 'form': form, 'action': 'Войти'}
     return render(request, 'main/user.html', context)
 
 
