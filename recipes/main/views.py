@@ -24,7 +24,7 @@ def register(request):
             username = form.cleaned_data['username']
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
-            user = User(username='username', email='email', password='password')
+            user = User(username=username, email=email, password=password)
             user.save()
             request.session['username'] = user.username
             return redirect('home')
