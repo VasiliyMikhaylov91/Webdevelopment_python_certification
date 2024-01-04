@@ -63,7 +63,7 @@ def login(request, **kwargs):
 
 
 def logout(request):
-    del request.session
+    del request.session['username']
     return redirect('/')
 
 
