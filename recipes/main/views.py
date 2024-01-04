@@ -12,7 +12,7 @@ from .forms import RegisterForm, LoginForm, User, RecipeForm, ImgForm, Descripti
 def head(func):
     def wrapper(request, *args, **kwargs):
         username = None
-        if request.session['username']:
+        if 'username' in request.session:
             username = request.session['username']
         kwargs['username'] = username
         return func(request, *args, **kwargs)
