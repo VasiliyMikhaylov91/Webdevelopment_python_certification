@@ -25,15 +25,23 @@
                class="nav-link px-2 link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Для
             проверяющего</a></li>
     </ul>
-
-    <div class="col-md-3 text-end">
-        <button type="submit" onClick="location.href='{% url 'login' %}'"
-                class="btn btn-outline-primary me-2">Войти
-        </button>
-        <button type="submit" onClick="location.href='{% url 'register' %}'"
-                class="btn btn-primary">Зарегестрироваться
-        </button>
-    </div>
+    {% If username %}
+        <div class="col-md-3 text-end">
+            <h5>{{ username }}</h5>
+            <button type="submit" onClick="location.href='{% url 'logout' %}'"
+                    class="btn btn-primary">Выйти
+            </button>
+        </div>
+    {% else %}
+        <div class="col-md-3 text-end">
+            <button type="submit" onClick="location.href='{% url 'login' %}'"
+                    class="btn btn-outline-primary me-2">Войти
+            </button>
+            <button type="submit" onClick="location.href='{% url 'register' %}'"
+                    class="btn btn-primary">Зарегестрироваться
+            </button>
+        </div>
+    {% endif %}
 </header>
 <div class="container">
     {% block content %}

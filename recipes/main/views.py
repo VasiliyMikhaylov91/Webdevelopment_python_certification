@@ -7,17 +7,33 @@ from .forms import RegisterForm, LoginForm, User, RecipeForm, ImgForm, Descripti
 
 
 # Create your views here.
-def index(request):
+
+
+def head(func):
+    def wrapper(request, *args, **kwargs):
+        username = None
+        if request.session:
+            username = request.session['username']
+        kwargs['username'] = username
+        return func(request, *args, kwargs)
+
+    return wrapper
+
+
+@head
+def index(request, **kwargs):
     positions = Recipe.objects.all()
     recipes_list = None
     if positions:
         recipes_list = []
         for _ in range(4):
             recipes_list.append(choice(positions))
-    return render(request, 'main/index.html', {'recipes': recipes_list})
+    context = {'recipes': recipes_list}
+    return render(request, 'main/index.html', context | kwargs)
 
 
-def register(request):
+@head
+def register(request, **kwargs):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -30,10 +46,11 @@ def register(request):
             return redirect('home')
     form = RegisterForm()
     context = {'title': 'Регистрация пользователя', 'form': form, 'action': 'Зарегестрароваться'}
-    return render(request, 'main/user.html', context)
+    return render(request, 'main/user.html', context | kwargs)
 
 
-def login(request):
+@head
+def login(request, **kwargs):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -42,7 +59,7 @@ def login(request):
             return redirect('home')
     form = LoginForm()
     context = {'title': 'Вход', 'form': form, 'action': 'Войти'}
-    return render(request, 'main/user.html', context)
+    return render(request, 'main/user.html', context | kwargs)
 
 
 def logout(request):
@@ -50,12 +67,15 @@ def logout(request):
     return redirect('/')
 
 
-def recipes(request):
+@head
+def recipes(request, **kwargs):
     positions = Recipe.objects.all()
-    return render(request, 'main/recipes.html', {'positions': positions})
+    context = {'positions': positions}
+    return render(request, 'main/recipes.html', context | kwargs)
 
 
-def recipe_page(request, pk):
+@head
+def recipe_page(request, pk, **kwargs):
     position = Recipe.objects.filter(id=pk).first()
     context = {
         "pk": pk,
@@ -66,10 +86,11 @@ def recipe_page(request, pk):
         "meal_image": position.meal_image,
         "author": position.author
     }
-    return render(request, 'main/recipe_page.html', context)
+    return render(request, 'main/recipe_page.html', context | kwargs)
 
 
-def change_img(request, pk):
+@head
+def change_img(request, pk, **kwargs):
     position = Recipe.objects.filter(id=pk).first()
     if request.method == 'POST':
         form = ImgForm(request.POST, request.FILES)
@@ -82,10 +103,11 @@ def change_img(request, pk):
             return redirect(f'/recipes/{pk}')
     form = ImgForm()
     context = {'action': f'Изменить изображение для {position.title}', 'form': form}
-    return render(request, 'main/recipe_conf.html', context)
+    return render(request, 'main/recipe_conf.html', context | kwargs)
 
 
-def change_description(request, pk):
+@head
+def change_description(request, pk, **kwargs):
     position = Recipe.objects.filter(id=pk).first()
     if request.method == 'POST':
         form = DescriptionForm(request.POST)
@@ -96,10 +118,11 @@ def change_description(request, pk):
             return redirect(f'/recipes/{pk}')
     form = DescriptionForm()
     context = {'action': f'Изменить описание для {position.title}', 'form': form}
-    return render(request, 'main/recipe_conf.html', context)
+    return render(request, 'main/recipe_conf.html', context | kwargs)
 
 
-def change_sequence(request, pk):
+@head
+def change_sequence(request, pk, **kwargs):
     position = Recipe.objects.filter(id=pk).first()
     if request.method == 'POST':
         form = SequenceForm(request.POST)
@@ -110,10 +133,11 @@ def change_sequence(request, pk):
             return redirect(f'/recipes/{pk}')
     form = SequenceForm()
     context = {'action': f'Изменить шаги приготовления для {position.title}', 'form': form}
-    return render(request, 'main/recipe_conf.html', context)
+    return render(request, 'main/recipe_conf.html', context | kwargs)
 
 
-def change_cooking_time(request, pk):
+@head
+def change_cooking_time(request, pk, **kwargs):
     position = Recipe.objects.filter(id=pk).first()
     if request.method == 'POST':
         form = CookingTimeForm(request.POST)
@@ -124,10 +148,11 @@ def change_cooking_time(request, pk):
             return redirect(f'/recipes/{pk}')
     form = CookingTimeForm()
     context = {'action': f'Изменить время приготовления для {position.title}', 'form': form}
-    return render(request, 'main/recipe_conf.html', context)
+    return render(request, 'main/recipe_conf.html', context | kwargs)
 
 
-def add_recipe(request):
+@head
+def add_recipe(request, **kwargs):
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES)
         if form.is_valid():
@@ -146,8 +171,10 @@ def add_recipe(request):
     else:
         form = RecipeForm()
     context = {'action': 'Добавить рецепт', 'form': form}
-    return render(request, 'main/recipe_conf.html', context)
+    return render(request, 'main/recipe_conf.html', context | kwargs)
 
 
-def info(request):
-    return render(request, 'main/info.html')
+@head
+def info(request, **kwargs):
+    context = dict()
+    return render(request, 'main/info.html', context | kwargs)
