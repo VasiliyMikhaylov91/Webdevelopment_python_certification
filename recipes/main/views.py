@@ -182,4 +182,4 @@ def info(request, **kwargs):
 
 
 def test(request):
-    return JsonResponse(request.session, json_dumps_params={'ensure_ascii': False})
+    return JsonResponse(dict(request.session), json_dumps_params={'ensure_ascii': False})
