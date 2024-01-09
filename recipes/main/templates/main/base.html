@@ -28,7 +28,7 @@
     </ul>
     {% if username %}
         <div class="col-md-3 text-end">
-            <h5>{{ username }}</h5>
+            <h5>{{ user.username }}</h5>
             <button type="submit" onClick="location.href='{% url 'logout' %}'"
                     class="btn btn-primary">Выйти
             </button>

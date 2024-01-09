@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 from random import choice
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 
 from .models import Recipe
 from .forms import RegisterForm, LoginForm, User, RecipeForm, ImgForm, DescriptionForm, SequenceForm, CookingTimeForm
@@ -13,7 +13,7 @@ from .forms import RegisterForm, LoginForm, User, RecipeForm, ImgForm, Descripti
 def head(func):
     def wrapper(request, *args, **kwargs):
         username = None
-        if 'username' in request.session:
+        if '_auth_user_id' in request.session:
             username = request.session['username']
         kwargs['username'] = username
         return func(request, *args, **kwargs)
