@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 from random import choice
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 from .models import Recipe
 from .forms import RegisterForm, LoginForm, User, RecipeForm, ImgForm, DescriptionForm, SequenceForm, CookingTimeForm
@@ -182,4 +182,4 @@ def info(request, **kwargs):
 
 
 def test(request):
-    return HttpResponse(dict(request.session))
+    return JsonResponse(request.session, json_dumps_params={'ensure_ascii': False})
