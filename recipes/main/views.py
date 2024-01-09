@@ -47,7 +47,7 @@ def register(request, **kwargs):
             return redirect('home')
     form = RegisterForm()
     context = {'title': 'Регистрация пользователя', 'form': form, 'action': 'Зарегестрароваться'}
-    return render(request, 'main/user.html', context | kwargs)
+    return render(request, 'main/login.html', context | kwargs)
 
 
 @head
@@ -60,7 +60,7 @@ def login(request, **kwargs):
             return redirect('home')
     form = LoginForm()
     context = {'title': 'Вход', 'form': form, 'action': 'Войти'}
-    return render(request, 'main/user.html', context | kwargs)
+    return render(request, 'main/login.html', context | kwargs)
 
 
 def logout(request):

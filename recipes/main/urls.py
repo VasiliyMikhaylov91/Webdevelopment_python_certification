@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from .views import index, register, login, logout, info, recipes, add_recipe, recipe_page, change_img, \
     change_description, change_sequence, change_cooking_time, test
 
@@ -16,4 +16,5 @@ urlpatterns = [
     path('new_recipe/', add_recipe, name='add_recipe'),
     path('info/', info, name='info'),
     path('test/', test, name='test'),
+    path('accounts/', include('django.contrib.auth.urls'))
 ]
