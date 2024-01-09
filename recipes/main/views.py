@@ -182,4 +182,4 @@ def info(request, **kwargs):
 
 
 def test(request):
-    return HttpResponse(request.session)
+    return HttpResponse(dict(request.session))
