@@ -14,7 +14,7 @@ def head(func):
     def wrapper(request, *args, **kwargs):
         username = None
         if '_auth_user_id' in request.session:
-            username = User.objects.filter(id='_auth_user_id').first().username
+            username = User.objects.filter(id=request.session['_auth_user_id']).first().username
         kwargs['username'] = username
         return func(request, *args, **kwargs)
 
