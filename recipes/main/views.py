@@ -13,8 +13,8 @@ from .forms import RegisterForm, LoginForm, User, RecipeForm, ImgForm, Descripti
 def head(func):
     def wrapper(request, *args, **kwargs):
         username = None
-        if '_auth_user_id' in request.session:
-            username = request.session['username']
+        # if '_auth_user_id' in request.session:
+        #     username = request.session['username']
         # kwargs['username'] = username
         return func(request, *args, **kwargs)
 
