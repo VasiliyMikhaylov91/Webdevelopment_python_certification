@@ -56,7 +56,7 @@ def login(request, **kwargs):
         form = LoginForm(request.POST)
         if form.is_valid():
             user = User.objects.filter(username=form.cleaned_data['username']).first()
-            request.session['username'] = user.username
+            # request.session['username'] = user.username
             return redirect('home')
     form = LoginForm()
     context = {'title': 'Вход', 'form': form, 'action': 'Войти'}
