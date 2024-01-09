@@ -15,7 +15,7 @@ def head(func):
         username = None
         if '_auth_user_id' in request.session:
             username = request.session['username']
-        kwargs['username'] = username
+        # kwargs['username'] = username
         return func(request, *args, **kwargs)
 
     return wrapper
