@@ -64,7 +64,9 @@ def login(request, **kwargs):
 
 
 def logout(request):
-    del request.session['username']
+    del request.session['_auth_user_id']
+    del request.session['_auth_user_backend']
+    del request.session['_auth_user_hash']
     return redirect('/')
 
 
