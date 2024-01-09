@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 from random import choice
+from django.http import HttpResponse
 
 from .models import Recipe
 from .forms import RegisterForm, LoginForm, User, RecipeForm, ImgForm, DescriptionForm, SequenceForm, CookingTimeForm
@@ -178,3 +179,7 @@ def add_recipe(request, **kwargs):
 def info(request, **kwargs):
     context = dict()
     return render(request, 'main/info.html', context | kwargs)
+
+
+def test(request):
+    return HttpResponse(request.session)
