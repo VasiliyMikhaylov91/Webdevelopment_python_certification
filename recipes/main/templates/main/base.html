@@ -26,7 +26,7 @@
             проверяющего</a></li>
         <li><a href="{% url 'test' %}" class="nav-link px-2">Test</a></li>
     </ul>
-    {% if user.username %}
+    {% if username %}
         <div class="col-md-3 text-end">
             <h5>{{ user.username }}</h5>
             <button type="submit" onClick="location.href='{% url 'logout' %}'"
