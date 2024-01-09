@@ -13,9 +13,9 @@ from .forms import RegisterForm, LoginForm, User, RecipeForm, ImgForm, Descripti
 def head(func):
     def wrapper(request, *args, **kwargs):
         username = None
-        # if '_auth_user_id' in request.session:
-        #     username = request.session['username']
-        # kwargs['username'] = username
+        if '_auth_user_id' in request.session:
+            username = User.objects.filter(id=int('_auth_user_id')).first().username
+        kwargs['username'] = username
         return func(request, *args, **kwargs)
 
     return wrapper
