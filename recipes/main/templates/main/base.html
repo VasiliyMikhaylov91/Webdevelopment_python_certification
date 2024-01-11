@@ -25,9 +25,8 @@
                class="nav-link px-2 link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Для
             проверяющего</a></li>
         <li><a href="{% url 'test' %}" class="nav-link px-2">Test</a></li>
-        <li>{{ user.username }}</li>
     </ul>
-    {% if username %}
+    {% if user.username %}
         <div class="col-md-3 text-end">
             <h5>{{ user.username }}</h5>
             <button type="submit" onClick="location.href='{% url 'logout' %}'"
